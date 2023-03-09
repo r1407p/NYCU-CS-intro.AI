@@ -18,7 +18,7 @@ def loadImages(dataPath):
     We create an empty list, dataset. 
     From the dataPath, find out the two folder that store images.
     Use "od.listdir()" two get the name of images.
-    Use for loop and "cv2.imread()" two convert each image to numpy array and append to dataset
+    Use for loop and "cv2.imread()" to convert each image to numpy array and append to dataset
 	return dataset
     """
     dataset = []
@@ -34,7 +34,7 @@ def loadImages(dataPath):
     for nonface_file in nonface_files:
         nonface_file = nonface_path+'/'+nonface_file
         img = cv2.imread(nonface_file,-1)
-        dataset.append((img,1)) 
+        dataset.append((img,0)) 
    
     # End your code (Part 1)
     return dataset

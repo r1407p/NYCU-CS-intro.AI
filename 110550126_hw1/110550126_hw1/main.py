@@ -11,6 +11,7 @@ print(f'The number of training samples loaded: {len(trainData)}')
 testData = dataset.loadImages('data/test')
 print(f'The number of test samples loaded: {len(testData)}')
 
+"""
 print('Show the first and last images of training dataset')
 fig, ax = plt.subplots(1, 2)
 ax[0].axis('off')
@@ -20,7 +21,8 @@ ax[1].axis('off')
 ax[1].set_title('Non face')
 ax[1].imshow(trainData[-1][0], cmap='gray')
 plt.show()
-print(1+'sdf')
+"""
+
 # Part 2: Implement selectBest function in adaboost.py and test the following code.
 # Part 3: Modify difference values at parameter T of the Adaboost algorithm.
 # And find better results. Please test value 1~10 at least.

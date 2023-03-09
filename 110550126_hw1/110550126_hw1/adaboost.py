@@ -36,6 +36,7 @@ class Adaboost:
                 negNum += 1
         print("Building features")
         features = self.buildFeatures(iis[0].shape)
+        print(features[0])
         print("Applying features to dataset")
         featureVals = self.applyFeatures(features, iis)
         print("Selecting best features")
@@ -50,7 +51,7 @@ class Adaboost:
             if labels[i] == 1:
                 weights[i] = 1.0 / (2 * posNum)
             else:
-                weights[i] = 1.0 / (2 * negNum)
+                weights[i] = 1.0 / (2 * negNum)       
         for t in range(self.T):
             print("Run No. of Iteration: %d" % (t+1))
             # Normalize weights
@@ -148,7 +149,28 @@ class Adaboost:
             bestError: The error of the best classifer
         """
         # Begin your code (Part 2)
-        raise NotImplementedError("To be implemented")
+        """
+        first we initial best classifer and error
+        than we use for loop to evaluate each classifer
+        for every classifer we test each image
+        if the classifer answer not equal the label answer
+        we add the weight to classifer's error
+        than we can determine the best classifer with smallest error
+        return the best classifier and Error
+        """
+        bestClf, bestError = None,float('inf')
+        
+        Clfs =  [WeakClassifier(feature) for feature in features]
+              
+        for Clf in Clfs: 
+            error = 0    
+            for i in range(0,len(iis)): 
+                if Clf.classify(iis[i]) != labels[i]: 
+                    error += weights[i] 
+            if error < bestError: 
+                bestClf = Clf     
+                bestError = error 
+
         # End your code (Part 2)
         return bestClf, bestError
     
