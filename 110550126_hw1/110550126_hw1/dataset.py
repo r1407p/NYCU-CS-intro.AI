@@ -14,6 +14,13 @@ def loadImages(dataPath):
         dataset: The list of tuples.
     """
     # Begin your code (Part 1)
+    """
+    We create an empty list, dataset. 
+    From the dataPath, find out the two folder that store images.
+    Use "od.listdir()" two get the name of images.
+    Use for loop and "cv2.imread()" two convert each image to numpy array and append to dataset
+	return dataset
+    """
     dataset = []
     face_path = dataPath+'/face'
     nonface_path = dataPath+'/non-face'
