@@ -1,5 +1,7 @@
+#encoding:utf-8
 import os
 import cv2
+import numpy as np
 
 def loadImages(dataPath):
     """
@@ -12,6 +14,20 @@ def loadImages(dataPath):
         dataset: The list of tuples.
     """
     # Begin your code (Part 1)
-    raise NotImplementedError("To be implemented")
+    dataset = []
+    face_path = dataPath+'/face'
+    nonface_path = dataPath+'/non-face'
+    face_files = os.listdir(face_path)
+    for face_file in face_files:
+        face_file = face_path+'/'+face_file
+        img = cv2.imread(face_file,-1)
+        dataset.append((img,1))
+    
+    nonface_files = os.listdir(nonface_path)
+    for nonface_file in nonface_files:
+        nonface_file = nonface_path+'/'+nonface_file
+        img = cv2.imread(nonface_file,-1)
+        dataset.append((img,1)) 
+   
     # End your code (Part 1)
     return dataset
