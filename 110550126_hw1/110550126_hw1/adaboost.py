@@ -36,7 +36,6 @@ class Adaboost:
                 negNum += 1
         print("Building features")
         features = self.buildFeatures(iis[0].shape)
-        print(features[0])
         print("Applying features to dataset")
         featureVals = self.applyFeatures(features, iis)
         print("Selecting best features")
@@ -185,6 +184,7 @@ class Adaboost:
         """
         total = 0
         ii = utils.integralImage(image)
+        #print(ii)
         for alpha, clf in zip(self.alphas, self.clfs):
             total += alpha * clf.classify(ii)
         return 1 if total >= 0.5 * sum(self.alphas) else 0
