@@ -37,7 +37,7 @@ def detect(dataPath, clf):
         i+=recs+1
       for img_path,recs in imgs:
         img = cv2.imread('data/detect/'+img_path)
-        cv2.imshow('Result',img)
+        #cv2.imshow('Result',img)
         cv2.waitKey(0)
         #print(clf)
         is_face = []
@@ -46,20 +46,6 @@ def detect(dataPath, clf):
           #cv2.imshow('R',face)
           face = cv2.resize(face,(19,19),interpolation=cv2.INTER_AREA)
           face = cv2.cvtColor(face, cv2.COLOR_RGB2GRAY)
-          #face= np.mean(face, axis=2)
-          #(face)
-          #print(face.shape)
-          #print(type(face))
-          #print(rec)
-
-          """fig, ax = plt.subplots(1, 2)
-          ax[0].axis('off')
-          ax[0].set_title('Face')
-          ax[0].imshow(face, cmap='gray')
-          ax[1].axis('off')
-          ax[1].set_title('Non face')
-          ax[1].imshow(face, cmap='gray')
-          plt.show()"""
          
           is_face.append(clf.classify(face))
         for i in range(len(is_face)):

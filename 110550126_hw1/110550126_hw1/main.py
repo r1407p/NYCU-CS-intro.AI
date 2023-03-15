@@ -12,14 +12,14 @@ print(f'The number of test samples loaded: {len(testData)}')
 
 
 print('Show the first and last images of training dataset')
-fig, ax = plt.subplots(1, 2)
+"""fig, ax = plt.subplots(1, 2)
 ax[0].axis('off')
 ax[0].set_title('Face')
 ax[0].imshow(trainData[1][0], cmap='gray')
 ax[1].axis('off')
 ax[1].set_title('Non face')
 ax[1].imshow(trainData[-1][0], cmap='gray')
-plt.show()
+plt.show()"""
 
 
 # Part 2: Implement selectBest function in adaboost.py and test the following code.
@@ -41,7 +41,8 @@ for t in [1,2,3,4,5,6,7,8,9,10,20,30,40,50]:
     print('\nEvaluate your classifier with test dataset')
     utils.evaluate(clf, testData)
 """
-t = 20
+
+t = 10
 clf = adaboost.Adaboost(T=t)
 print(f'Start training your classifier with T={t}')
 #clf.train(trainData)
@@ -55,8 +56,8 @@ print('\nEvaluate your classifier with test dataset')
 utils.evaluate(clf, testData)
 # Part 4: Implement detect function in detection.py and test the following code.
 print('\nDetect faces at the assigned location using your classifier')
-detection.detect('data/detect/detectData.txt', clf)
+detection.detect('data/detect/detectData.txt', clf)            
 
 # Part 5: Test classifier on your own images
 print('\nDetect faces on your own images')
-detection.detect('data/detect/yourOwnImages.txt', clf)
+detection.detect('data/detect/myOwnImages.txt', clf)
