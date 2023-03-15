@@ -20,6 +20,9 @@ def detect(dataPath, clf):
     we first read the txt file, according the content in txtfile
     we convert the content into a list of tuple 
     with first element is the name of img and second element is the list of face rectangle
+    than we can get the rectangle of faces in picture
+    for every face in imagine we use cv2.resize and cv2.cvtcolor to make face to 19*19 gray scale
+    than use the result of detected face to draw the rectangle
     """
     with open(dataPath) as f:
       txt_content = f.read().split('\n')
@@ -37,16 +40,11 @@ def detect(dataPath, clf):
         i+=recs+1
       for img_path,recs in imgs:
         img = cv2.imread('data/detect/'+img_path)
-        #cv2.imshow('Result',img)
-        cv2.waitKey(0)
-        #print(clf)
         is_face = []
         for rec in recs:
           face = img[rec[1]:rec[1]+rec[3]+1,rec[0]:rec[0]+rec[2]+1]
-          #cv2.imshow('R',face)
           face = cv2.resize(face,(19,19),interpolation=cv2.INTER_AREA)
           face = cv2.cvtColor(face, cv2.COLOR_RGB2GRAY)
-         
           is_face.append(clf.classify(face))
         for i in range(len(is_face)):
           if is_face[i]==1:

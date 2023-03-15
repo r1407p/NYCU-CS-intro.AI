@@ -41,13 +41,12 @@ for t in [1,2,3,4,5,6,7,8,9,10,20,30,40,50]:
     print('\nEvaluate your classifier with test dataset')
     utils.evaluate(clf, testData)
 """
-
-t = 10
+t = 2
 clf = adaboost.Adaboost(T=t)
 print(f'Start training your classifier with T={t}')
-#clf.train(trainData)
-#clf.save(f'model/clf_200_1_{t}')
-clf = adaboost.Adaboost.load(f'model/clf_200_1_{t}')
+clf.train(trainData)
+#clf.save(f'model/clf_200_2_{t}')
+#clf = adaboost.Adaboost.load(f'model/clf_200_2_{t}')
 
 print('\nEvaluate your classifier with training dataset')
 utils.evaluate(clf, trainData)

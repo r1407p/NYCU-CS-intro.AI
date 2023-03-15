@@ -159,7 +159,7 @@ class Adaboost:
         """
         bestClf, bestError = None,float('inf')
         
-        Clfs =  [WeakClassifier(feature) for feature in features]
+        Clfs = WeakClassifier.train_weak(self, featureVals, labels, features, weights)
               
         for Clf in Clfs: 
             error = 0    
