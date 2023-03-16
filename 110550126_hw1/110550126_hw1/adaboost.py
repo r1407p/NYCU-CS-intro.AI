@@ -150,7 +150,7 @@ class Adaboost:
         # Begin your code (Part 2)
         """
         first we initial best classifer and error
-        than we use for loop to evaluate each classifer
+        than we use for loop to evaluate each classifer (use train_weak()to get each classifier)
         for every classifer we test each image
         if the classifer answer not equal the label answer
         we add the weight to classifer's error
@@ -158,8 +158,8 @@ class Adaboost:
         return the best classifier and Error
         """
         bestClf, bestError = None,float('inf')
-        
-        Clfs = WeakClassifier.train_weak(self, featureVals, labels, features, weights)
+        #Clfs = [WeakClassifier(feature) for feature in features]                       #origin
+        Clfs = WeakClassifier.train_weak(self, featureVals, labels, features, weights)  #train threshold and polarity
               
         for Clf in Clfs: 
             error = 0    

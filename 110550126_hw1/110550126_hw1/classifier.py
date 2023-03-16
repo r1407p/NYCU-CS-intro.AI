@@ -12,6 +12,13 @@ class WeakClassifier:
         self.polarity = polarity
 
     def train_weak(self, featureVals, labels, features, weights):
+        """
+        first we use for loop to calculate the total weight of pos and neg
+        for each feature in featureVal, we calculate it's error
+        and use it's feature as threshold and polarity by how many pos neg it detected
+        create and returethe classifiers by the parameter 
+        
+        """
         total_pos = 0
         total_pos, total_neg = 0, 0
         for w, label in zip(weights, labels):
