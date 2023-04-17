@@ -193,11 +193,13 @@ class AlphaBetaAgent(MultiAgentSearchAgent):
                     next_value = alphabeta(next_state,next_depth,next_agent,alpha,beta)[1]
                     if ans_value < next_value:
                         ans_value = next_value
-                        ans_action = action
+                        ans_action = [action]
+                    elif ans_value ==next_value:
+                        ans_action.append(action)
                     if ans_value > beta:
                         return  action,ans_value
                     alpha = max(alpha,ans_value)
-                return ans_action, ans_value
+                return random.choice(ans_action), ans_value
                 
             else:
                 ans_value = float('Inf')
@@ -206,59 +208,14 @@ class AlphaBetaAgent(MultiAgentSearchAgent):
                     next_value = alphabeta(next_state,next_depth,next_agent,alpha,beta)[1]
                     if ans_value > next_value:
                         ans_value = next_value
-                        ans_action = action
+                        ans_action = [action]
+                    elif ans_value==next_value:
+                        ans_action.append(action)
                     if ans_value < alpha:
                         return  action,ans_value
                     beta = min(beta,ans_value)
-                return ans_action, ans_value
-            """
-            
-            next_value = []
-            next_action = []
-            
-            
-            
-            
-            
-            if agent == 0:
-                ans_value = float('-Inf')
-            else:
-                ans_value = float('Inf')
-            for action in legal_act:
-                next_state = state.getNextState(agent, action)
-                next_value = alphabeta(next_state,next_depth,next_agent,alpha,beta)[1]
-                if agent == 0:
-                    if next_value >beta:
-                        return action,beta
-                
-                    alpha = max(next_value,alpha)
-                    if next_value >ans_value:
-                        ans_value = next_value
-                        ans_action = action
-                else:
-                    if next_value <alpha:
-                        return action,alpha
+                return random.choice(ans_action), ans_value
                     
-                    beta  = min(beta,next_value)
-                    
-                    if next_value < ans_value:
-                        ans_value=  next_value
-                        ans_action = action
-            return ans_action, ans_value"""
-                        
-                            
-            """   next_value.append(value)
-                next_action.append(action)
-            if agent ==0:
-                ans_value = max(next_value)
-            else:
-                ans_value = min(next_value)
-            possible_index = []
-            for i in range(next_value):
-                if next_value[i]==ans_value:
-                    possible_index.append(i)
-            ans_index = random.choice(possible_index)
-            return next_action[ans_index], ans_value         """        
         return alphabeta(gameState,self.depth,0,float('-Inf'),float('Inf'))[0]
         # End your code (Part 2)
 
@@ -276,6 +233,38 @@ class ExpectimaxAgent(MultiAgentSearchAgent):
         legal moves.
         """
         # Begin your code (Part 3)
+        def expectimax(state,depth,agent):
+            if depth ==0 or state.isWin() or state.isLose():
+                return 0,self.evaluationFunction(state)
+            
+            next_agent = (agent+1)%state.getNumAgents()
+            next_depth  = depth
+            if agent == state.getNumAgents()-1:
+                next_depth = depth -1
+            
+            legal_act = state.getLegalActions(agent)
+            
+            next_state = [state.getNextState(agent, act) for act in legal_act]
+            next_value = [expectimax(nextstate,next_depth,next_agent)[1] for nextstate in next_state]
+
+            if agent ==0:
+                ans_value = max(next_value)
+                for i in range(len(next_value)):
+                    if next_value[i] == ans_value:
+                        return legal_act[i], ans_value
+            else:
+                return 0, sum(next_value)/len(next_value)
+            
+            """next_state = [state.getNextState(agent, act) for act in legal_act]
+                next_value = [expectimax(nextstate,next_depth,next_agent)[1] for nextstate in next_state]
+                ans_value = max(next_value)
+                possible_index = []
+                for i in range(len(next_value)):
+                    if ans_value == next_value[i]:
+                        possible_index.append(i)
+                index = random.choice(possible_index)
+                return legal_act[index],ans_value"""
+        return expectimax(gameState,self.depth,0)[0]
         raise NotImplementedError("To be implemented")
         # End your code (Part 3)
 
