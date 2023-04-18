@@ -163,7 +163,7 @@ class GameState:
         return float(self.data.score)
 
     def getCapsules(self):
-        """
+        """ 
         Returns a list of positions (x,y) of the remaining capsules.
         """
         return self.data.capsules

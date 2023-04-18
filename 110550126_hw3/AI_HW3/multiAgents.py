@@ -44,10 +44,7 @@ class ReflexAgent(Agent):
         scared because of Pacman having eaten a power pellet.
         """
         # Useful information you can extract from a GameState (pacman.py)
-        childGameState = currentGameState.getPacmanNextState(action)
-        newPos = childGameState.getPacmanPosition()
-        newFood = childGameState.getFood()
-        newGhostStates = childGameState.getGhostStates()
+         
         newScaredTimes = [ghostState.scaredTimer for ghostState in newGhostStates]
 
         minGhostDistance = min([manhattanDistance(newPos, state.getPosition()) for state in newGhostStates])
@@ -270,11 +267,50 @@ class ExpectimaxAgent(MultiAgentSearchAgent):
 
 
 def betterEvaluationFunction(currentGameState):
+    
+    # End your code (Part 4)
     """
     Your extreme ghost-hunting, pellet-nabbing, food-gobbling, unstoppable
     evaluation function (Part 4).
     """
     # Begin your code (Part 4)
+    pac_pos = currentGameState.getPacmanPosition()
+    
+    
+    ghost_states = currentGameState.getGhostStates()
+    ghost_pos = currentGameState.getGhostPositions()
+    
+    scared_times = [g_s.scaredTimer for g_s in ghost_states]
+    ghost_distance = [util.manhattanDistance(pac_pos,g_p)for g_p in ghost_pos]
+    
+    ghost_score = 0
+    scared_time = sum(scared_times)
+    min_ghost_distance = min(ghost_distance)
+
+    if scared_time > 1:
+        if min_ghost_distance==0:
+            ghost_score+=600
+        else:
+            ghost_score +=300/min_ghost_distance
+    else:
+        if min_ghost_distance==0:
+            ghost_score -=100
+        elif min_ghost_distance<5:
+            ghost_score -= 20/min_ghost_distance
+    
+    food = currentGameState.getFood()
+    food = food.asList()
+    food_distance = [util.manhattanDistance(pac_pos,f_p) for f_p in food]
+    
+    food_score = -5*len(food_distance)
+    if len(food_distance)>0:
+        min_food_distance = min(food_distance)
+        food_score +=10/min_food_distance+10    
+        
+    capsules = currentGameState.getCapsules()
+    #print(capsules_distance)
+    capsules_score = len(capsules)*(-100)
+    return food_score+ghost_score+currentGameState.getScore()+capsules_score
     raise NotImplementedError("To be implemented")
     # End your code (Part 4)
 
