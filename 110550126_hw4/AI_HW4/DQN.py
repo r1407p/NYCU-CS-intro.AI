@@ -180,6 +180,7 @@ class Agent():
             if epsilon < self.epsilon:
                 action = self.env.action_space.sample()
             else:
+                #Aprint(state)
                 tensor = torch.Tensor(state)
                 temp = torch.unsqueeze(tensor,0)
                 value = self.evaluate_net.forward(temp)
