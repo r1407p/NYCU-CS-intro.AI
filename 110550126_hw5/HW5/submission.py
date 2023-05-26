@@ -99,7 +99,6 @@ class ExactInference(object):
             now_prob = self.belief.getProb(old[0],old[1])
             trans_prob = self.transProb[(old,new)]
             new_belief.addProb(new[0], new[1],  now_prob * trans_prob)
-    
         new_belief.normalize()
         self.belief = new_belief
         return 
